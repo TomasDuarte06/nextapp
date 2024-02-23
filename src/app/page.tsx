@@ -5,40 +5,23 @@ import Getrocket, { RocketsProps } from "../app/components/Rocket";
 function App() {
   const [rockets, setRockets] = useState<any[]>([]);
 
- const addRocket = (rocketData: any) => {
-   // Verifica se o foguete já existe no estado
-   const existingRocketIndex = rockets.findIndex(
-     (rocket) => rocket.id === rocketData.id
-   );
+  const addRocket = (rocketData: any) => {
+    // Verifica se o foguete já existe no estado
+    const existingRocketIndex = rockets.findIndex(
+      (rocket) => rocket.id === rocketData.id
+    );
 
-   // Se o foguete já existir, substitua-o pelo novo foguete no estado
-   if (existingRocketIndex !== -1) {
-     setRockets((prevRockets) => {
-       const newRockets = [...prevRockets];
-       newRockets[existingRocketIndex] = rocketData;
-       return newRockets;
-     });
-   } else {
-     // Se o foguete não existir, adicione-o ao estado
-     setRockets((prevRockets) => [...prevRockets, rocketData]);
-   }
- };
-  const containerStyle: React.CSSProperties = {
-    maxWidth: "800px",
-    margin: "0 auto",
-    padding: "20px",
-    fontFamily: "Arial, sans-serif",
-    backgroundColor: "#615f5f",
-    borderRadius: "10px",
-    boxShadow: "0px 2px 4px rgba(131, 131, 131, 0.1)",
-  };
-
-  const titleStyle: React.CSSProperties = {
-    fontSize: "2.5rem",
-    fontWeight: "bold",
-    color: "#333",
-    textAlign: "center",
-    marginBottom: "20px",
+    // Se o foguete já existir, substitua-o pelo novo foguete no estado
+    if (existingRocketIndex !== -1) {
+      setRockets((prevRockets) => {
+        const newRockets = [...prevRockets];
+        newRockets[existingRocketIndex] = rocketData;
+        return newRockets;
+      });
+    } else {
+      // Se o foguete não existir, adicione-o ao estado
+      setRockets((prevRockets) => [...prevRockets, rocketData]);
+    }
   };
 
   const rocketListStyle: React.CSSProperties = {
@@ -57,12 +40,16 @@ function App() {
   };
 
   return (
-    <div style={containerStyle}>
-      <h1 style={titleStyle}>SpaceX Rocket Information</h1>
-
-      <Getrocket getrocket={addRocket} />
-
-      <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        maxWidth: "1200px",
+        margin: "0 auto",
+      }}
+    >
+      {/* Lado esquerdo: Lista de foguetes */}
+      <div style={{ flex: 1 }}>
         <h2 style={{ fontSize: "1.8rem", marginBottom: "10px" }}>Rockets:</h2>
         <ul style={rocketListStyle}>
           {rockets.map((rocket, index) => (
@@ -83,6 +70,15 @@ function App() {
           ))}
         </ul>
       </div>
+
+      {/* Lado direito: Outro conteúdo */}
+      <div style={{ flex: 2 }}>
+        {/* Aqui você pode adicionar qualquer outro conteúdo que desejar */}
+      </div>
+
+      {/* Componente para buscar os dados dos foguetes */}
+      <Getrocket getrocket={addRocket} />
+      <Getlaunchpads getlaunchpads={addlaunchpad}/>
     </div>
   );
 }
