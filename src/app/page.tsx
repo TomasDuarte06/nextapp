@@ -5,10 +5,24 @@ import Getrocket, { RocketsProps } from "../app/components/Rocket";
 function App() {
   const [rockets, setRockets] = useState<any[]>([]);
 
-  const addRocket = (rocketData: any) => {
-    setRockets((prevRockets) => [...prevRockets, rocketData]);
-  };
+ const addRocket = (rocketData: any) => {
+   // Verifica se o foguete já existe no estado
+   const existingRocketIndex = rockets.findIndex(
+     (rocket) => rocket.id === rocketData.id
+   );
 
+   // Se o foguete já existir, substitua-o pelo novo foguete no estado
+   if (existingRocketIndex !== -1) {
+     setRockets((prevRockets) => {
+       const newRockets = [...prevRockets];
+       newRockets[existingRocketIndex] = rocketData;
+       return newRockets;
+     });
+   } else {
+     // Se o foguete não existir, adicione-o ao estado
+     setRockets((prevRockets) => [...prevRockets, rocketData]);
+   }
+ };
   const containerStyle: React.CSSProperties = {
     maxWidth: "800px",
     margin: "0 auto",

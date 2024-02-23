@@ -57,8 +57,9 @@ const Getrocket: FC<RocketsProps> = ({ getrocket }) => {
         console.error("Error fetching data:", error);
       }
     }
+
     fetchData();
-  }, []);
+  }, [query]); 
 
   return null;
 };
