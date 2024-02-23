@@ -1,95 +1,76 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import React, { useState } from "react";
+import Getrocket, { RocketsProps } from "../app/components/Rocket";
 
-export default function Home() {
+function App() {
+  const [rockets, setRockets] = useState<any[]>([]);
+
+  const addRocket = (rocketData: any) => {
+    setRockets((prevRockets) => [...prevRockets, rocketData]);
+  };
+
+  const containerStyle: React.CSSProperties = {
+    maxWidth: "800px",
+    margin: "0 auto",
+    padding: "20px",
+    fontFamily: "Arial, sans-serif",
+    backgroundColor: "#615f5f",
+    borderRadius: "10px",
+    boxShadow: "0px 2px 4px rgba(131, 131, 131, 0.1)",
+  };
+
+  const titleStyle: React.CSSProperties = {
+    fontSize: "2.5rem",
+    fontWeight: "bold",
+    color: "#333",
+    textAlign: "center",
+    marginBottom: "20px",
+  };
+
+  const rocketListStyle: React.CSSProperties = {
+    listStyleType: "none",
+    padding: 0,
+    color: "#000000",
+  };
+
+  const rocketItemStyle: React.CSSProperties = {
+    marginBottom: "20px",
+    padding: "20px",
+    border: "1px solid #ddd",
+    borderRadius: "10px",
+    backgroundColor: "#fff",
+    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <div style={containerStyle}>
+      <h1 style={titleStyle}>SpaceX Rocket Information</h1>
+
+      <Getrocket getrocket={addRocket} />
+
+      <div>
+        <h2 style={{ fontSize: "1.8rem", marginBottom: "10px" }}>Rockets:</h2>
+        <ul style={rocketListStyle}>
+          {rockets.map((rocket, index) => (
+            <li key={index} style={rocketItemStyle}>
+              <p>
+                <strong>ID:</strong> {rocket.id}
+              </p>
+              <p>
+                <strong>Name:</strong> {rocket.name}
+              </p>
+              <p>
+                <strong>Country:</strong> {rocket.country}
+              </p>
+              <p>
+                <strong>Height:</strong> {rocket.height} meters
+              </p>
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
   );
 }
+
+export default App;
