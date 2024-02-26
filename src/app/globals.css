@@ -93,7 +93,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-  background-image: url("./components/assets/espaco.jpg"); /* Substitua 'caminho/para/sua/imagem.gif' pelo caminho correto para sua imagem animada */
+  background-image: url("../../public/assets/espaco.jpg");
   background-size: coverz; /* Ajuste o tamanho da imagem para cobrir todo o fundo */
 }
 
