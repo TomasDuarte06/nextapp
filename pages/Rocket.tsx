@@ -1,5 +1,6 @@
 import { useEffect, FC, useState } from "react";
 import { request, gql } from "graphql-request";
+import Navbar from "./Navbar";
 
 export interface RocketsProps {
   getrocket?: Function; // Torna a propriedade opcional com o operador de aspas
@@ -17,26 +18,6 @@ interface ApiResponse {
 
 const Getrocket: FC<RocketsProps> = ({ getrocket }) => {
   const [rockets, setRockets] = useState<any[]>([]);
-
-  // Função para adicionar ou atualizar os dados do foguete no estado
-  const addRocket = (rocketData: any) => {
-    // Verifica se o foguete já existe no estado
-    const existingRocketIndex = rockets.findIndex(
-      (rocket) => rocket.id === rocketData.id
-    );
-
-    // Se o foguete já existir, substitua-o pelo novo foguete no estado
-    if (existingRocketIndex !== -1) {
-      setRockets((prevRockets) => {
-        const newRockets = [...prevRockets];
-        newRockets[existingRocketIndex] = rocketData;
-        return newRockets;
-      });
-    } else {
-      // Se o foguete não existir, adicione-o ao estado
-      setRockets((prevRockets) => [...prevRockets, rocketData]);
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,7 +45,7 @@ const Getrocket: FC<RocketsProps> = ({ getrocket }) => {
           // Chama a função fornecida para passar os dados dos foguetes para o componente pai
           if (getrocket) {
             getrocket(responseData.rockets);
-          } 
+          }
         } else {
           console.error("No rocket data found");
         }
@@ -75,6 +56,17 @@ const Getrocket: FC<RocketsProps> = ({ getrocket }) => {
 
     fetchData();
   }, [getrocket]);
+
+  const containerStyle: React.CSSProperties = {
+    backgroundImage: "url('/assets/espaco.jpg')", // Caminho para a imagem de fundo
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  };
 
   const rocketListStyle: React.CSSProperties = {
     listStyleType: "none",
@@ -93,16 +85,13 @@ const Getrocket: FC<RocketsProps> = ({ getrocket }) => {
 
   return (
     <div>
-      {/* <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          maxWidth: "1200px",
-          margin: "0 auto",
-        }}
-      > */}
-      <div>
-        <h2 style={{ fontSize: "1.8rem", marginBottom: "10px" }}>Rockets:</h2>
+      <Navbar />
+      <div style={containerStyle}>
+        <h2
+          style={{ color: "white", fontSize: "1.8rem", marginBottom: "10px" }}
+        >
+          Rockets:
+        </h2>
         <ul style={rocketListStyle}>
           {rockets.map((rocket, index) => (
             <li key={index} style={rocketItemStyle}>
@@ -123,7 +112,6 @@ const Getrocket: FC<RocketsProps> = ({ getrocket }) => {
         </ul>
       </div>
     </div>
-    // </div>
   );
 };
 
