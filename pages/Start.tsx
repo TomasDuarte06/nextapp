@@ -1,46 +1,37 @@
 import { FC } from "react";
 import Image from "next/image";
-
-// const headerStyle: React.CSSProperties = {
-//   textAlign: "center",
-//   marginTop: "0px",
-//   fontSize: "2.5rem", // Tamanho maior do texto
-//   fontWeight: "bold", // Texto em negrito
-//   color: "#b9af2a", // Cor do texto
-//   background: "linear-gradient(to right, #cf2d2d, #3737c4)", // Gradiente de vermelho para azul
-//   padding: "30px",
-//   borderRadius: "5px",
-//   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-// };
+import Link from "next/link"; // Importando o componente Link
 
 const Start: FC = () => {
   return (
     <div>
-      {/* <header style={headerStyle}>SpaceX News</header> */}
       <main>
         <section>
           <div style={{ textAlign: "center" }}>
             <div style={{ position: "relative", display: "inline-block" }}>
               <ImageWithText
-                src="/assets/espaco.jpg"
+                src="/assets/rocket1.jpg"
                 alt="Imagem 1"
-                slogan="STARLINK MISSION"
-                buttonText="Ver mais "
-              />
-            </div>
-            <div style={{ position: "relative", display: "inline-block" }}>
-              <ImageWithText
-                src="/assets/espaco.jpg"
-                alt="Imagem 2"
-                slogan="TELKOMSAT MERAH PUTIH 2 MISSION"
+                slogan="CREW-8 MISSION"
+                link="/Launches" // Adicionando a propriedade de link para a página crew-8
                 buttonText="Ver mais"
               />
             </div>
             <div style={{ position: "relative", display: "inline-block" }}>
               <ImageWithText
-                src="/assets/espaco.jpg"
+                src="/assets/rocket2.jpg"
+                alt="Imagem 2"
+                slogan="STARLINK MISSION"
+                link="/Launches" // Adicionando a propriedade de link para a página starlink
+                buttonText="Ver mais"
+              />
+            </div>
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <ImageWithText
+                src="/assets/rocket3.jpg"
                 alt="Imagem 3"
-                slogan="INTUITIVE MACHINES IM-1 MISSION"
+                slogan="STARSHIP'S SECOND FLIGHT TEST"
+                link="/Launches" // Adicionando a propriedade de link para a página starship
                 buttonText="Ver mais"
               />
             </div>
@@ -56,6 +47,7 @@ interface ImageWithTextProps {
   src: string;
   alt: string;
   slogan: string;
+  link: string; // Adicionando a propriedade de link
   buttonText: string;
 }
 
@@ -63,6 +55,7 @@ const ImageWithText: FC<ImageWithTextProps> = ({
   src,
   alt,
   slogan,
+  link, // Recebendo o link como uma propriedade
   buttonText,
 }) => {
   const containerStyle: React.CSSProperties = {
@@ -89,15 +82,22 @@ const ImageWithText: FC<ImageWithTextProps> = ({
     border: "2px solid white", // Borda branca com espessura de 5px
     color: "white", // Cor do texto branca
     marginTop: "70px",
+    zIndex: "2",
   };
 
   return (
     <div style={containerStyle}>
-      <Image src={src} alt={alt} width={1920} height={1080} />
-      <div style={textContainerStyle}>
-        <h2 style={sloganStyle}>{slogan}</h2>
-        <button style={buttonStyle}>{buttonText}</button>
-      </div>
+      <Link href={link}>
+        {" "}
+        {/* Usando o componente Link para redirecionar para a página */}
+        <div>
+          <Image src={src} alt={alt} width={1920} height={1080} />
+          <div style={textContainerStyle}>
+            <h2 style={sloganStyle}>{slogan}</h2>
+            <button style={buttonStyle}>{buttonText}</button>
+          </div>
+        </div>
+      </Link>
     </div>
   );
 };

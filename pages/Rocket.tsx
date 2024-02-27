@@ -5,11 +5,42 @@ import Navbar from "./Navbar";
 export interface RocketsProps {
   getrocket?: Function; // Torna a propriedade opcional com o operador de aspas
 }
+
+const containerStyle: React.CSSProperties = {
+  backgroundImage: "url('/assets/espaco.jpg')", // Caminho para a imagem de fundo
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  minHeight: "00vh",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+};
+
+const rocketListStyle: React.CSSProperties = {
+  listStyleType: "none",
+  padding: 0,
+  color: "#000000",
+};
+
+const rocketItemStyle: React.CSSProperties = {
+  marginBottom: "20px",
+  padding: "20px",
+  // width: "500px",
+  // height: "150px",
+  border: "1px solid #ddd",
+  borderRadius: "10px",
+  backgroundColor: "#fff",
+  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+};
+
 interface ApiResponse {
   rockets: {
     id: number;
     name: string;
     country: string;
+    first_flight: string;
+    wikipedia: string;
     height: {
       meters: string;
     };
@@ -27,6 +58,8 @@ const Getrocket: FC<RocketsProps> = ({ getrocket }) => {
             id
             name
             country
+            first_flight
+            wikipedia
             height {
               meters
             }
@@ -57,32 +90,6 @@ const Getrocket: FC<RocketsProps> = ({ getrocket }) => {
     fetchData();
   }, [getrocket]);
 
-  const containerStyle: React.CSSProperties = {
-    backgroundImage: "url('/assets/espaco.jpg')", // Caminho para a imagem de fundo
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  };
-
-  const rocketListStyle: React.CSSProperties = {
-    listStyleType: "none",
-    padding: 0,
-    color: "#000000",
-  };
-
-  const rocketItemStyle: React.CSSProperties = {
-    marginBottom: "20px",
-    padding: "20px",
-    border: "1px solid #ddd",
-    borderRadius: "10px",
-    backgroundColor: "#fff",
-    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-  };
-
   return (
     <div>
       <Navbar />
@@ -106,6 +113,12 @@ const Getrocket: FC<RocketsProps> = ({ getrocket }) => {
               </p>
               <p>
                 <strong>Height:</strong> {rocket.height.meters} meters
+              </p>
+              <p>
+                <strong>First Flight:</strong> {rocket.first_flight}
+              </p>
+              <p>
+                <strong>Wikipédia:</strong> {rocket.wikipedia}
               </p>
             </li>
           ))}

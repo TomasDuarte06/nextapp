@@ -13,10 +13,19 @@ const Navbar: FC = () => {
       </Link>
       <ul style={ulStyle}>
         <li style={liStyle}>
-          <Link href="/Rocket">Rocket</Link>
+          <Link href="/Company">COMPANY</Link>
         </li>
         <li style={liStyle}>
-          <Link href="/Launchpads">Launch</Link>
+          <Link href="/Rocket">ROCKETS</Link>
+        </li>
+        <li style={liStyle}>
+          <Link href="/Dragons">DRAGONS</Link>
+        </li>
+        <li style={liStyle}>
+          <Link href="/Launches">LAUNCHES</Link>
+        </li>
+        <li style={liStyle}>
+          <Link href="/Ships">SHIPS</Link>
         </li>
       </ul>
       <style jsx>{`
@@ -36,7 +45,7 @@ const Navbar: FC = () => {
 };
 
 const navbarStyle: React.CSSProperties = {
-  background: "#333",
+  background: "black",
   color: "#ffffff",
   padding: "35px",
 };
